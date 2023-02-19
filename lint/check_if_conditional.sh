@@ -1,24 +1,26 @@
 #!/usr/bin/env bash
+Check_if_conditional()
+    {
+        StringFor=$(cat $FILE | grep -Poz "\bif\b(\s*|.+){1,}\bfi\b")
 
-StringFor=$(cat $FILE | grep -Poz "\bif\b(\s*|.+){1,}\bfi\b")
+        if [ -n "$StringFor" ]; then
 
-if [ -n "$StringFor" ]; then
-    echo ""
-    # echo "$StringFor"
-    echo "hi"
-    StringForChecked=$(echo $StringFor | grep -Poz "\bif\s+(\[\s+).+(\s+\])(\s+|;)\s?\bthen(?!(?=\s+\bfi))\s+(?(?=\n)\s+|.+){1,}?\bfi\b")
+            echo ""
+            echo "hi"
+            StringForChecked=$(echo $StringFor | grep -Poz "\bif\s+(\[\s+).+(\s+\])(\s+|;)\s?\bthen(?!(?=\s+\bfi))\s+(?(?=\n)\s+|.+){1,}?\bfi\b")
+            echo ""
 
-    echo ""
-    if [ -z "$StringForChecked" ]; then
-         
-        echo "There is error in : "
-        echo  "$StringFor"
-        echo ""
-   
-    else
-         printf "there is no error in IF conditional "
-    fi
-    
-fi
+            if [ -z "$StringForChecked" ]; then
 
-# for\s*(\(\()+.+(\)\));\s*\bdo\b\s+(.|\s)+\b(done)\b
+                echo "There is error in : "
+                echo  "$StringFor"
+                echo ""
+
+            else
+
+                printf "there is no error in IF conditional "
+
+            fi
+            
+        fi
+    }
